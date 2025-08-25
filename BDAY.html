@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YAYAYAYAY BDAY INCOMING ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: url('https://i.ibb.co/b5xgywgV/background.jpg') no-repeat center center/cover;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3em;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    }
+
+    p {
+      font-size: 1.5em;
+      max-width: 600px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 15px;
+      border-radius: 10px;
+      line-height: 1.5;
+    }
+
+    #countdown {
+      font-size: 3em;
+      font-weight: bold;
+      color: #ffeb3b;
+      margin-top: 25px;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    }
+
+    .images {
+      margin-top: 20px;
+    }
+
+    .images img {
+      width: 250px;
+      height: auto;
+      margin: 10px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 1.2em;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 WELLL VERY EXCITED DAMM DUDE ITS JUST YEAH YOU CAN CHECK THE COUNTDOWN DAYS LEFT ❤️</h1>
+
+  <p>
+    Baby I know I'm not the best at showing excitement.  
+    You said yesterday that it's sooo long till your bday but no, it’s almost here!  
+    It’s my girl’s birthday and I really love you 💖 Just stick with me!  
+    (btw check this sick ass timer till your bday 👇)
+  </p>
+
+  <div id="countdown"></div>
+
+  <div class="images">
+    <img src="https://i.ibb.co/8LcJq2rP/toget-jpg.jpg" alt="Us together">
+    <img src="https://i.ibb.co/FkgLhHdM/solo-jpeg.jpg" alt="Her beautiful smile">
+  </div>
+
+  <canvas id="confetti"></canvas>
+
+  <footer>Made with ❤️ by Shikhar</footer>
+
+  <script>
+    // 🎂 Countdown Timer for 25 Sept 2025
+    const birthday = new Date("2025-09-25T00:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = birthday - now;
+
+      if (distance < 0) {
+        document.getElementById("countdown").innerHTML = "🎉 It's your Birthday today! 🎂💖";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 🎊 Confetti Animation
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let confetti = [];
+    for (let i = 0; i < 150; i++) {
+      confetti.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 6 + 4,
+        d: Math.random() * 10,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+        tilt: Math.floor(Math.random() * 10) - 10
+      });
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confetti.forEach(c => {
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2, false);
+        ctx.fillStyle = c.color;
+        ctx.fill();
+      });
+      updateConfetti();
+    }
+
+    function updateConfetti() {
+      confetti.forEach(c => {
+        c.y += Math.cos(c.d) + 1 + c.r / 2;
+        c.x += Math.sin(c.d);
+        if (c.y > canvas.height) {
+          c.y = -10;
+          c.x = Math.random() * canvas.width;
+        }
+      });
+    }
+
+    setInterval(drawConfetti, 20);
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
